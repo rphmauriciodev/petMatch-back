@@ -1,3 +1,9 @@
+# Como iniciar
+
+### 1 - clone o projeto
+### 2 - instale as depedências utilizando o comando 'yarn' na raiz do projeto
+### 3 - utilize o comando 'yarn start:dev' para rodar a aplicação
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
