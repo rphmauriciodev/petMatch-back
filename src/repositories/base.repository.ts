@@ -27,9 +27,12 @@ export class BaseRepository<T extends BaseEntity> {
     return collection;
   }
 
-  buscarPorId(id: number): T | undefined {
-    const db = this.lerDB();
-    const collection = db[this.collectionName] || [];
-    return collection.find((item) => item.id === id);
+  buscarPorId(id?: number): T | undefined {
+    if (id !== undefined) {
+      const db = this.lerDB();
+      const collection = db[this.collectionName] || [];
+      return collection.find((item) => item.id == id);
+    }
+    return undefined;
   }
 }
