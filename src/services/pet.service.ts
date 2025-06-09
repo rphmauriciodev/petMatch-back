@@ -3,14 +3,19 @@ import { Pet } from '../entities/pet.entity';
 import { BaseRepository } from 'src/repositories/base.repository';
 import { PetDetailDTO, PetDTO } from 'src/dtos/pet.dto';
 import { Genero } from 'src/entities/genero.entity';
+import { GeneroService } from './genero.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class PetService {
-  private pet = new BaseRepository<Pet>('pets', 'db.json');
-  private genero = new BaseRepository<Genero>('generos', 'db.json');
+  constructor(
+    readonly generoService: GeneroService,
+    readonly userService: UserService,
+  ) {}
+  private repo = new BaseRepository<Pet>('pets', 'db.json');
 
   listarTodos(): PetDTO[] {
-    return this.pet
+    return this.repo
       .listarTodos()
       .map((pet) => ({
         id: pet.id,
@@ -28,8 +33,8 @@ export class PetService {
   }
 
   buscarPorId(id: number): PetDetailDTO | undefined {
-    const pet = this.pet.buscarPorId(id);
-    const genero = this.genero.buscarPorId(pet?.generoId);
+    const pet = this.repo.buscarPorId(id);
+    const genero = this.generoService.buscarPorId(pet?.generoId);
 
     const petDetail: PetDetailDTO = {
       id: pet?.id,
@@ -45,6 +50,20 @@ export class PetService {
     };
 
     return petDetail;
+  }
+
+  adotarPet(petId: number, userId: number) {
+    let user = this.userService.buscarPorId(userId);
+
+    if (user) {
+      user.hasAdoption = true;
+
+      this.userService.atualizar(user);
+      this.repo.removerPorId(petId);
+      return true;
+    }
+
+    return false;
   }
 
   listarDestaques(): PetDTO[] {

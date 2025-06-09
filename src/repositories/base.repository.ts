@@ -1,4 +1,3 @@
-// src/repositories/generic.repository.ts
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -21,6 +20,10 @@ export class BaseRepository<T extends BaseEntity> {
     return JSON.parse(dados);
   }
 
+  private salvarDB(db: Record<string, T[]>): void {
+    fs.writeFileSync(this.dbPath, JSON.stringify(db, null, 2), 'utf8');
+  }
+
   listarTodos(): T[] {
     const db = this.lerDB();
     const collection = db[this.collectionName] || [];
@@ -34,5 +37,31 @@ export class BaseRepository<T extends BaseEntity> {
       return collection.find((item) => item.id == id);
     }
     return undefined;
+  }
+
+  removerPorId(id: number): boolean {
+    const db = this.lerDB();
+    const collection = db[this.collectionName] || [];
+    const index = collection.findIndex((item) => item.id === id);
+    if (index === -1) return false;
+
+    collection.splice(index, 1);
+    db[this.collectionName] = collection;
+    this.salvarDB(db);
+
+    return true;
+  }
+
+  atualizar(itemAtualizado: T): boolean {
+    const db = this.lerDB();
+    const collection = db[this.collectionName] || [];
+    const index = collection.findIndex((item) => item.id === itemAtualizado.id);
+    if (index === -1) return false;
+
+    collection[index] = itemAtualizado;
+    db[this.collectionName] = collection;
+    this.salvarDB(db);
+
+    return true;
   }
 }

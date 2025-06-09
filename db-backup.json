@@ -30,7 +30,7 @@
       "generoId": 2,
       "qualidades": "Curiosa, alegre, amigável com outros animais",
       "historia": "Foi encontrada em um parque e está em recuperação de uma leve desnutrição. Muito esperta e adaptável.",
-      "cor": "Branco",
+      "cor": "Branca",
       "raca": "Não definida",
       "idade": 1,
       "dataCadastro": "2025-06-01T09:00:00.000Z",
@@ -42,7 +42,7 @@
       "generoId": 2,
       "qualidades": "Afetuosa, curiosa, adora colo",
       "historia": "Nala foi resgatada de um criador ilegal e passou por um processo de reabilitação. Apesar do passado difícil, ela é extremamente dócil e carinhosa. Gosta de lugares quentinhos e de dormir enrolada com humanos.",
-      "cor": "Rosado com manchas cinza",
+      "cor": "Rosada com manchas cinza",
       "raca": "Sphynx",
       "idade": 16,
       "dataCadastro": "2025-06-05T10:00:00.000Z",
@@ -57,6 +57,13 @@
     {
       "id": 2,
       "genero": "Fêmea"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "nome": "Murilo",
+      "hasAdoption": false
     }
   ]
 }
