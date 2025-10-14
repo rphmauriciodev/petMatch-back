@@ -21,7 +21,7 @@ export class PetService {
         id: pet.id,
         nome: pet.nome,
         idade: pet.idade,
-        fotoBase64: pet.fotoBase64,
+        // fotoBase64: pet.fotoBase64,
         dataCadastro: pet.dataCadastro,
       }))
       .sort((a, b) => {
